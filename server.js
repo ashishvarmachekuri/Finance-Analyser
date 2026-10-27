@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const {
     ObjectId
@@ -93,9 +94,20 @@ const PORT =
     process.env.PORT || 5000;
 
 
-app.use(
-    express.json()
-);
+const allowedOrigins = [
+    "https://finance-analyser-public.vercel.app",
+    "http://localhost:5000",
+    "http://127.0.0.1:5000"
+];
+
+// CORS must run before authentication and API routes.
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+app.use(express.json());
 async function verifyFirebaseToken(req, res, next) {
     try {
         const authHeader = req.headers.authorization || "";
@@ -118,6 +130,8 @@ async function verifyFirebaseToken(req, res, next) {
         });
     }
 }
+
+
 
 // All /api routes registered after this line require a valid Firebase token.
 app.use("/api", verifyFirebaseToken);
