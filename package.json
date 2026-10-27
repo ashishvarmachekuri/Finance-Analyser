@@ -1,0 +1,26 @@
+{
+  "name": "ai-powered-personal-finance-analyser",
+  "version": "1.0.0",
+  "description": "AI-Powered Personal Finance Analysis and Expense Categorization System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.52.0",
+    "chart.js": "^4.6.1",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "firebase": "^13.1.0",
+    "firebase-admin": "^14.5.0",
+    "mongodb": "^6.21.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "allowScripts": {
+    "chart.js@4.6.1": true
+  }
+}

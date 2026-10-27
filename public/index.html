@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Personal Finance Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     APPLICATION LAYOUT
+===================================================== -->
+
+<div class="app-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-title">
+                Personal Finance
+            </div>
+
+            <div class="brand-subtitle">
+                Expense Manager
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <button
+                class="nav-item active"
+                data-page="add"
+                type="button"
+            >
+
+                <span class="nav-icon">+</span>
+
+                <span>
+                    Add Transaction
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="transactions"
+                type="button"
+            >
+
+                <span class="nav-icon">↔</span>
+
+                <span>
+                    Transactions
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="analytics"
+                type="button"
+            >
+
+                <span class="nav-icon">▥</span>
+
+                <span>
+                    Analytics
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="summary"
+                type="button"
+            >
+
+                <span class="nav-icon">✦</span>
+
+                <span>
+                    Spending Summary
+                </span>
+
+            </button>
+
+
+        </nav>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+       
+<header class="topbar">
+
+    <div class="topbar-left">
+
+        <span class="topbar-label">
+            PERSONAL FINANCE
+        </span>
+
+        <h2 id="pageTitle">
+            Add Transaction
+        </h2>
+
+    </div>
+
+    <div class="topbar-actions">
+
+        <div class="connection-status">
+            <span class="status-dot"></span>
+            Local Database
+        </div>
+
+        <button
+            type="button"
+            id="logoutButton"
+            class="logout-button"
+        >
+            <span aria-hidden="true">↪</span>
+            Log out
+        </button>
+
+    </div>
+
+</header>
+
+
+
+
+        <!-- =================================================
+             PAGE CONTAINER
+        ================================================== -->
+
+        <div class="page-container">
+
+
+
+            <!-- =================================================
+                 ADD TRANSACTION PAGE
+            ================================================== -->
+
+            <section
+                class="page-section active"
+                id="addPage"
+            >
+
+
+                <div class="page-intro">
+
+                    <h1>
+                        Track your money.
+                    </h1>
+
+                    <p>
+                        Add income and expenses to keep your
+                        financial records organized.
+                    </p>
+
+                </div>
+
+
+
+                <!-- TRANSACTION FORM -->
+
+                <div class="form-card">
+
+
+                    <div class="card-heading">
+
+                        <div class="heading-icon">
+                            +
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                New Transaction
+                            </h3>
+
+                            <p>
+                                Enter the details of your transaction.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <form id="transactionForm">
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="form-group full-width">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                id="description"
+                                name="description"
+                                placeholder="e.g. Uber ride, Amazon purchase"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- FORM ROW -->
+
+                        <div class="form-row">
+
+
+                            <!-- AMOUNT -->
+
+                            <div class="form-group">
+
+                                <label for="amount">
+                                    Amount
+                                </label>
+
+                                <div class="amount-input">
+
+                                    <span>
+                                        ₹
+                                    </span>
+
+                                    <input
+                                        type="number"
+                                        id="amount"
+                                        name="amount"
+                                        placeholder="0.00"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- TYPE -->
+
+                            <div class="form-group">
+
+                                <label for="type">
+                                    Transaction Type
+                                </label>
+
+                                <select
+                                    id="type"
+                                    name="type"
+                                    required
+                                >
+
+                                    <option value="expense">
+                                        Expense
+                                    </option>
+
+                                    <option value="income">
+                                        Income
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- DATE -->
+
+                            <div class="form-group">
+
+                                <label for="date">
+                                    Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+
+                            <span>
+                                Add Transaction
+                            </span>
+
+                            <span class="button-arrow">
+                                →
+                            </span>
+
+                        </button>
+
+
+                        <!-- MESSAGE -->
+
+                        <div
+                            id="transactionMessage"
+                            class="form-message"
+                        ></div>
+
+
+                    </form>
+
+
+                </div>
+
+
+
+                <!-- QUICK FINANCIAL OVERVIEW -->
+
+                <div class="quick-stats">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon income-icon">
+                            ↗
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Total Income
+                            </span>
+
+                            <strong id="addTotalIncome">
+                                ₹0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon expense-icon">
+                            ↘
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Total Expenses
+                            </span>
+
+                            <strong id="addTotalExpenses">
+                                ₹0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon balance-icon">
+                            ₹
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Current Balance
+                            </span>
+
+                            <strong id="addBalance">
+                                ₹0.00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+            <!-- =================================================
+                 TRANSACTIONS PAGE
+            ================================================== -->
+
+            <section
+                class="page-section"
+                id="transactionsPage"
+            >
+
+
+                <div class="page-intro transactions-intro">
+
+                    <div>
+
+                        <h1>
+                            Transactions
+                        </h1>
+
+                        <p>
+                            View and manage all your recorded transactions.
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="transaction-count"
+                        id="transactionCount"
+                    >
+                        0 transactions
+                    </div>
+
+                </div>
+
+
+
+                <!-- FILTER BAR -->
+
+                <div class="filter-bar">
+
+
+                    <div class="search-box">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search transactions..."
+                        >
+
+                    </div>
+
+
+                    <select id="categoryFilter">
+
+                        <option value="">
+                            All Categories
+                        </option>
+
+                        <option value="Food">
+                            Food
+                        </option>
+
+                        <option value="Transport">
+                            Transport
+                        </option>
+
+                        <option value="Shopping">
+                            Shopping
+                        </option>
+
+                        <option value="Education">
+                            Education
+                        </option>
+
+                        <option value="Entertainment">
+                            Entertainment
+                        </option>
+
+                        <option value="Bills">
+                            Bills
+                        </option>
+
+                        <option value="Health">
+                            Health
+                        </option>
+
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+
+                    <select id="typeFilter">
+
+                        <option value="">
+                            All Types
+                        </option>
+
+                        <option value="expense">
+                            Expenses
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                    </select>
+
+
+                </div>
+
+
+
+                <!-- TRANSACTION TABLE -->
+
+                <div class="table-card">
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        DATE
+                                    </th>
+
+                                    <th>
+                                        DESCRIPTION
+                                    </th>
+
+                                    <th>
+                                        TYPE
+                                    </th>
+
+                                    <th>
+                                        CATEGORY
+                                    </th>
+
+                                    <th>
+                                        AMOUNT
+                                    </th>
+
+                                    <th>
+                                        METHOD
+                                    </th>
+
+                                    <th>
+                                        ACTION
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="transactionsBody">
+
+                                <!-- JavaScript inserts transactions -->
+
+                            </tbody>
+
+                        </table>
+
+
+                        <div
+                            id="emptyTransactions"
+                            class="empty-state"
+                        >
+
+                            <div class="empty-icon">
+                                —
+                            </div>
+
+                            <h3>
+                                No transactions found
+                            </h3>
+
+                            <p>
+                                Add a transaction to start tracking
+                                your finances.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+            <!-- =================================================
+                 ANALYTICS PAGE
+            ================================================== -->
+
+            <section
+                class="page-section"
+                id="analyticsPage"
+            >
+
+
+                <div class="page-intro analytics-intro">
+
+                    <div>
+
+                        <h1>
+                            Financial Analytics
+                        </h1>
+
+                        <p>
+                            Understand your spending patterns
+                            and financial activity.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="secondary-button"
+                        id="refreshAnalytics"
+                        type="button"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+
+
+                <!-- ANALYTICS STATISTICS -->
+
+                <div class="analytics-stats">
+
+
+                    <div class="analytics-card">
+
+                        <span>
+                            Total Income
+                        </span>
+
+                        <strong
+                            id="analyticsIncome"
+                            class="green-value"
+                        >
+                            ₹0.00
+                        </strong>
+
+                        <small>
+                            Recorded income
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="analytics-card">
+
+                        <span>
+                            Total Expenses
+                        </span>
+
+                        <strong
+                            id="analyticsExpenses"
+                            class="red-value"
+                        >
+                            ₹0.00
+                        </strong>
+
+                        <small>
+                            Total money spent
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="analytics-card">
+
+                        <span>
+                            Balance
+                        </span>
+
+                        <strong
+                            id="analyticsBalance"
+                            class="blue-value"
+                        >
+                            ₹0.00
+                        </strong>
+
+                        <small>
+                            Income minus expenses
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="analytics-card">
+
+                        <span>
+                            Unusual Spending
+                        </span>
+
+                        <strong
+                            id="analyticsUnusual"
+                            class="purple-value"
+                        >
+                            0
+                        </strong>
+
+                        <small>
+                            Potentially unusual transactions
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ANALYTICS CHARTS -->
+
+                <div class="analytics-grid">
+
+                    <!-- EXPENSE CATEGORY DOUGHNUT CHART -->
+                    <div class="analytics-panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Expense Breakdown</h3>
+                                <p>How your expenses are distributed by category.</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container doughnut-container">
+                            <canvas id="categoryChart" aria-label="Expense breakdown by category" role="img"></canvas>
+                        </div>
+
+                        <div id="categoryList" class="category-list chart-legend">
+                            <!-- JavaScript inserts category legend items -->
+                        </div>
+                    </div>
+
+                    <!-- MONTHLY EXPENSE BAR CHART -->
+                    <div class="analytics-panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Monthly Expenses</h3>
+                                <p>Compare your spending across months.</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="monthlyChart" aria-label="Monthly expenses bar chart" role="img"></canvas>
+                            <p id="monthlyEmpty" class="chart-overlay-empty" hidden>
+                                Add expenses to see monthly trends.
+                            </p>
+                        </div>
+
+                        <!-- Kept for compatibility with existing app.js implementations -->
+                        <div id="monthlyList" class="monthly-list" hidden></div>
+                    </div>
+
+                    <!-- OVERALL INCOME VS EXPENSES -->
+                    <div class="analytics-panel full-chart-panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Income vs. Expenses</h3>
+                                <p>Compare your total recorded income with your total expenses.</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container comparison-chart">
+                            <canvas id="incomeExpenseChart" aria-label="Overall income versus expenses bar chart" role="img"></canvas>
+                            <p id="comparisonEmpty" class="chart-overlay-empty" hidden>
+                                Add income or expenses to see the comparison.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- UNUSUAL TRANSACTIONS -->
+
+                <div class="analytics-panel unusual-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Unusual Transactions
+                            </h3>
+
+                            <p>
+                                Transactions identified as unusually high.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="unusualList"
+                        class="unusual-list"
+                    >
+
+                        <!-- JavaScript inserts unusual transactions -->
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+            <!-- =================================================
+                 SPENDING SUMMARY PAGE
+            ================================================== -->
+
+            <section
+                class="page-section"
+                id="summaryPage"
+            >
+
+
+                <div class="page-intro">
+
+                    <h1>
+                        Spending Summary
+                    </h1>
+
+                    <p>
+                        Review your financial activity and generate
+                        an AI-assisted summary when needed.
+                    </p>
+
+                </div>
+
+
+
+                <!-- SUMMARY INTRO -->
+
+                <div class="summary-intro">
+
+                    <div>
+
+                        <span class="summary-label">
+                            OPTIONAL AI ANALYSIS
+                        </span>
+
+                        <h3>
+                            Spending Insights
+                        </h3>
+
+                        <p>
+                            Gemini can analyze your recorded
+                            transactions and provide a concise
+                            summary of your spending patterns.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SUMMARY CARD -->
+
+                <div class="summary-card">
+
+
+                    <div class="summary-header">
+
+                        <div>
+
+                            <h3>
+                                AI Spending Insights
+                            </h3>
+
+                            <p>
+                                Generate a summary only when you
+                                choose to.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            id="generateSummaryBtn"
+                            class="generate-button"
+                            type="button"
+                        >
+
+                            Generate Summary
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div
+                        id="summaryResult"
+                        class="summary-result"
+                    >
+
+
+                        <!-- INITIAL STATE -->
+
+                        <div class="summary-placeholder">
+
+                            <div class="placeholder-icon">
+                                ✦
+                            </div>
+
+                            <h3>
+                                Ready when you are
+                            </h3>
+
+                            <p>
+                                Click "Generate Summary" to analyze
+                                your recorded financial data.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- INFORMATION CARDS -->
+
+                <div class="ai-info-grid">
+
+
+                    <div class="ai-info-card">
+
+                        <div class="info-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Spending Pattern
+                            </strong>
+
+                            <p>
+                                Understand your overall spending
+                                behavior.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="ai-info-card">
+
+                        <div class="info-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Category Insights
+                            </strong>
+
+                            <p>
+                                Identify categories where you
+                                spend the most.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="ai-info-card">
+
+                        <div class="info-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Practical Suggestions
+                            </strong>
+
+                            <p>
+                                Receive suggestions based on your
+                                recorded data.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+<script type="module" src="firebase-auth.js"></script>
+
+
+</body>
+
+</html>
