@@ -15,12 +15,17 @@ const {
 
 require("dotenv").config();
 
-// Firebase Admin SDK: server-side token verification.
-const serviceAccountPath =
-    process.env.FIREBASE_SERVICE_ACCOUNT_PATH ||
-    path.join(__dirname, "serviceAccountKey.json");
 
-const serviceAccount = require(serviceAccountPath);
+ // Firebase Admin SDK: server-side token verification.
+const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
+const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
+
+const serviceAccount = serviceAccountJson
+    ? JSON.parse(serviceAccountJson)
+    : require(
+        serviceAccountPath || path.join(__dirname, "serviceAccountKey.json")
+      );
+
 
 if (getApps().length === 0) {
     initializeApp({
