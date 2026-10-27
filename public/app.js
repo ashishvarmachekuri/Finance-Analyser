@@ -8,10 +8,36 @@
    GLOBAL DATA
 ========================================================= */
 // Firebase-authenticated requests to the Express backend.
+
+const API_BASE_URL = window.location.hostname === "localhost"
+    || window.location.hostname === "127.0.0.1"
+    ? ""
+    : "https://finance-analyser-trqo.onrender.com";
+
 async function apiFetch(url, options = {}) {
-  if (!url.startsWith("/api/")) {
-    throw new Error("apiFetch can only call /api/ endpoints.");
-  }
+    if (!url.startsWith("/api/")) {
+        throw new Error("apiFetch can only call /api/ endpoints.");
+    }
+
+    if (!window.financeAuth) {
+        throw new Error("Authentication is still initializing. Please try again.");
+    }
+
+    const token = await window.financeAuth.getToken();
+
+    const headers = new Headers(options.headers || {});
+    headers.set("Authorization", `Bearer ${token}`);
+
+    if (options.body && !headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/json");
+    }
+
+    return fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        headers
+    });
+}
+
 
   if (!window.financeAuth) {
     throw new Error("Authentication is still initializing. Please try again.");
